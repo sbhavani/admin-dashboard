@@ -20,7 +20,6 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "drizzle-orm": "^0.31.2",
     "drizzle-zod": "^0.5.1",
     "lucide-react": "^0.400.0",
     "next": "14.0.4",
@@ -48,8 +47,5 @@
       "@types/react": "npm:types-react@19.0.0-rc.1",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
     }
-  },
-  "devDependencies": {
-    "drizzle-kit": "^0.22.8"
   }
 }
