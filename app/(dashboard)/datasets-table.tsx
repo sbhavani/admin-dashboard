@@ -20,6 +20,15 @@ import { SelectDataset } from '@/lib/db';
 import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Slider } from "@/components/ui/slider"
+import { useState } from "react"
 
 export function DatasetsTable({
   datasets,
@@ -32,6 +41,20 @@ export function DatasetsTable({
 }) {
   let router = useRouter();
   let datasetsPerPage = 5;
+
+  // Add state for filters
+  const [modalityFilter, setModalityFilter] = useState<string>('all');
+  const [ageRange, setAgeRange] = useState<[number, number]>([0, 100]);
+
+  // Get unique modalities from datasets
+  const modalities = Array.from(new Set(datasets.map(d => d.modality)));
+
+  // Filter datasets
+  const filteredDatasets = datasets.filter(dataset => {
+    const modalityMatch = modalityFilter === 'all' || dataset.modality === modalityFilter;
+    const ageMatch = dataset.patientAge >= ageRange[0] && dataset.patientAge <= ageRange[1];
+    return modalityMatch && ageMatch;
+  });
 
   function prevPage() {
     router.back();
@@ -50,6 +73,33 @@ export function DatasetsTable({
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <div className="mb-4 flex gap-4 items-center">
+          <div className="w-[200px]">
+            <Select value={modalityFilter} onValueChange={setModalityFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by modality" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Modalities</SelectItem>
+                {modalities.map(modality => (
+                  <SelectItem key={modality} value={modality}>
+                    {modality}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="w-[200px]">
+            <p className="text-sm mb-2">Age Range: {ageRange[0]} - {ageRange[1]}</p>
+            <Slider
+              min={0}
+              max={100}
+              step={1}
+              value={ageRange}
+              onValueChange={(value) => setAgeRange(value as [number, number])}
+            />
+          </div>
+        </div>
         <Table>
           <TableHeader>
             <TableRow>
@@ -68,7 +118,7 @@ export function DatasetsTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {datasets.map((dataset) => (
+            {filteredDatasets.map((dataset) => (
               <Dataset key={dataset.id} dataset={dataset} />
             ))}
           </TableBody>
