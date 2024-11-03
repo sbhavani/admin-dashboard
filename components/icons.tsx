@@ -110,17 +110,57 @@ export function Logo() {
 
 export function VercelLogo(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      {...props}
-      aria-label="Vercel logomark"
-      height="64"
-      role="img"
-      viewBox="0 0 74 64"
+    <svg 
+      data-v-fde0c5aa="" 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 300 300" 
+      className="icon"
     >
-      <path
-        d="M37.5896 0.25L74.5396 64.25H0.639648L37.5896 0.25Z"
-        fill="currentColor"
-      ></path>
+      <defs data-v-fde0c5aa=""></defs>
+      <rect 
+        data-v-fde0c5aa="" 
+        fill="transparent" 
+        x="0" 
+        y="0" 
+        width="300px" 
+        height="300px" 
+        className="logo-background-square"
+      />
+      <defs data-v-fde0c5aa="">
+        <linearGradient 
+          data-v-fde0c5aa="" 
+          gradientTransform="rotate(25)" 
+          id="6acdf8c3-9497-4f07-89cd-ffedc7a8abf2" 
+          x1="0%" 
+          y1="0%" 
+          x2="100%" 
+          y2="0%"
+        >
+          <stop 
+            data-v-fde0c5aa="" 
+            offset="0%" 
+            stopColor="#41E296" 
+            stopOpacity="1"
+          />
+          <stop 
+            data-v-fde0c5aa="" 
+            offset="100%" 
+            stopColor="#00C4EE" 
+            stopOpacity="1"
+          />
+        </linearGradient>
+      </defs>
+      <g 
+        data-v-fde0c5aa="" 
+        id="70162973-e494-4337-a12a-2402c6116b32" 
+        fill="url(#6acdf8c3-9497-4f07-89cd-ffedc7a8abf2)" 
+        stroke="none" 
+        transform="matrix(2.607716536130902,0,0,2.607716536130902,20.322159817303277,17.47976082957606)"
+      >
+        <path 
+          d="M13.572 36.355a3.616 3.616 0 0 0-3.615 3.616v21.694a3.614 3.614 0 0 0 3.615 3.615 3.615 3.615 0 0 0 3.616-3.615V39.971a3.617 3.617 0 0 0-3.616-3.616zm12.053-15.667a3.615 3.615 0 0 0-3.615 3.616v53.029a3.614 3.614 0 0 0 3.615 3.615 3.615 3.615 0 0 0 3.616-3.615V24.304a3.617 3.617 0 0 0-3.616-3.616zM37.677 8.636a3.616 3.616 0 0 0-3.616 3.616v77.133a3.615 3.615 0 0 0 7.232 0V12.252a3.617 3.617 0 0 0-3.616-3.616zm12.052 21.092a3.616 3.616 0 0 0-3.616 3.615v34.951a3.615 3.615 0 0 0 7.231 0V33.343a3.616 3.616 0 0 0-3.615-3.615zM61.78 8.636a3.616 3.616 0 0 0-3.615 3.616v77.133a3.615 3.615 0 0 0 7.23 0V12.252a3.615 3.615 0 0 0-3.615-3.616zm12.053 18.078a3.616 3.616 0 0 0-3.615 3.616v40.976a3.616 3.616 0 1 0 7.23 0V30.33a3.617 3.617 0 0 0-3.615-3.616zm12.052 10.244a3.617 3.617 0 0 0-3.616 3.616v20.489a3.616 3.616 0 0 0 7.231-.001V40.574a3.617 3.617 0 0 0-3.615-3.616"
+        />
+      </g>
     </svg>
   );
 }

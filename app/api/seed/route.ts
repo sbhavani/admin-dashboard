@@ -1,4 +1,4 @@
-// import { db, products } from 'lib/db';
+import { db, datasets } from 'lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,106 +7,69 @@ export async function GET() {
     message: 'Uncomment to seed data after DB is set up.'
   });
 
-  // await db.insert(products).values([
+  // await db.insert(datasets).values([
   //   {
   //     id: 1,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/smartphone-gaPvyZW6aww0IhD3dOpaU6gBGILtcJ.webp',
-  //     name: 'Smartphone X Pro',
-  //     status: 'active',
-  //     price: '999.00',
-  //     stock: 150,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 2,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/earbuds-3rew4JGdIK81KNlR8Edr8NBBhFTOtX.webp',
-  //     name: 'Wireless Earbuds Ultra',
-  //     status: 'active',
-  //     price: '199.00',
-  //     stock: 300,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 3,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/home-iTeNnmKSMnrykOS9IYyJvnLFgap7Vw.webp',
-  //     name: 'Smart Home Hub',
-  //     status: 'active',
-  //     price: '149.00',
-  //     stock: 200,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 4,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/tv-H4l26crxtm9EQHLWc0ddrsXZ0V0Ofw.webp',
-  //     name: '4K Ultra HD Smart TV',
-  //     status: 'active',
-  //     price: '799.00',
-  //     stock: 50,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 5,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/laptop-9bgUhjY491hkxiMDeSgqb9R5I3lHNL.webp',
-  //     name: 'Gaming Laptop Pro',
-  //     status: 'active',
-  //     price: '1299.00',
-  //     stock: 75,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 6,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/headset-lYnRnpjDbZkB78lS7nnqEJFYFAUDg6.webp',
-  //     name: 'VR Headset Plus',
-  //     status: 'active',
-  //     price: '349.00',
-  //     stock: 120,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 7,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/watch-S2VeARK6sEM9QFg4yNQNjHFaHc3sXv.webp',
-  //     name: 'Smartwatch Elite',
-  //     status: 'active',
-  //     price: '249.00',
-  //     stock: 250,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 8,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/speaker-4Zk0Ctx5AvxnwNNTFWVK4Gtpru4YEf.webp',
-  //     name: 'Bluetooth Speaker Max',
+  //     imageUrl: '...',
+  //     name: 'Dataset 1',
   //     status: 'active',
   //     price: '99.00',
-  //     stock: 400,
+  //     stock: 100,
   //     availableAt: new Date()
   //   },
-  //   {
-  //     id: 9,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/charger-GzRr0NSkCj0ZYWkTMvxXGZQu47w9r5.webp',
-  //     name: 'Portable Charger Super',
-  //     status: 'active',
-  //     price: '59.00',
-  //     stock: 500,
-  //     availableAt: new Date()
-  //   },
-  //   {
-  //     id: 10,
-  //     imageUrl:
-  //       'https://uwja77bygk2kgfqe.public.blob.vercel-storage.com/thermostat-8GnK2LDE3lZAjUVtiBk61RrSuqSTF7.webp',
-  //     name: 'Smart Thermostat Pro',
-  //     status: 'active',
-  //     price: '199.00',
-  //     stock: 175,
-  //     availableAt: new Date()
-  //   }
   // ]);
+
+  // Inserting data from test-patients.json
+  await db.insert(datasets).values([
+    {
+      modality: "US",
+      studyDate: new Date("2021-01-31"),
+      patientId: "gAAAAABgn1pFquZ5AF8RqI5ClU0aOH3LOeA-J1OSlW1MHmyFNCc2_HAzOHfoasP09agJ35R4fpYTazPAB6rn2Ipm00b4BcTD3g==",
+      patientDob: new Date("1974-04-20"),
+      patientSex: "F",
+      report: "OBR||BH01202101310014|ABH01OCA21027584|TEST000212^USG ABDOMEN WITH PELVIS||||||||||||||||||||US|||||||||||||OBX|1|FT|TEST000212^USG ABDOMEN WITH PELVIS|1435644|...",
+      accession: "BH01202101310014",
+      patientAge: 47,
+    },
+    {
+      modality: "US",
+      studyDate: new Date("2021-01-31"),
+      patientId: "gAAAAABgn1pFRpjpAOXCxT0l3ZfxLQRQ3Tl1SyuRKTiSAxpvuVcUDQJDB518TjXo2YT-HRb8ztx7L2W7OWQRVXshitBSGLDmjw==",
+      patientDob: new Date("1974-04-20"),
+      patientSex: "F",
+      report: "OBR||BH01202101310014|ABH01OCA21027584|TEST000212^USG ABDOMEN WITH PELVIS||||||||||||||||||||US|||||||||||||OBX|1|FT|TEST000212^USG ABDOMEN WITH PELVIS|1435644|...",
+      accession: "BH01202101310014",
+      patientAge: 47,
+    },
+    {
+      modality: "MR",
+      studyDate: new Date("2021-01-31"),
+      patientId: "gAAAAABgn1pFKwmLwt7n19CI-jSHHQsVDDQxEIzoNXEpmeq4MzjP1b9rlJwtUrtsMB0jWEjdEdMoD9vwfiN7dyQT9YVD2CkdSQ==",
+      patientDob: new Date("1974-08-18"),
+      patientSex: "F",
+      report: "OBR||BH01202101310033|ABH01OCR21004505^^O|TEST000782^MRI LUMBAR SPINE|R||20210131102953|20210131102953||||^||||^^^^||||||||MR|F||||||||||||NTE|||||",
+      accession: "BH01202101310033",
+      patientAge: 47,
+    },
+    {
+      modality: "01",
+      studyDate: new Date("2021-01-31"),
+      patientId: "gAAAAABgn1pF52o7z51yzqNEPA104rgUUxSj9d5IgXMAKmt_4UL-aOK9--9sY5lXBEc8sFD9E6z3r0ml-iLcZQoV8yvCk7Uh9w==",
+      patientDob: new Date("1997-12-30"),
+      patientSex: "M",
+      report: "",
+      accession: "",
+      patientAge: 24,
+    },
+    {
+      modality: "US",
+      studyDate: new Date("2021-01-31"),
+      patientId: "gAAAAABgn1pFaEduYOO4IeZMcHeeHASEOg4H-1oY5MGMqKkUpoIuFKnQw4XKva7AoSTdiIxJtkULmWnrda5H8GJvKAeGqvZniw==",
+      patientDob: new Date("1936-01-01"),
+      patientSex: "M",
+      report: "OBR||BH01202101300244|LO21000029517^^O|TEST000212^USG ABDOMEN WITH PELVIS|R||20210131103346|20210131103346||||^||||^^^^||||||||US|F||||||||||||NTE|||||",
+      accession: "BH01202101300244",
+      patientAge: 85,
+    }
+  ]);
 }

@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev --turbo",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:push": "drizzle-kit push"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.4",
@@ -19,11 +20,10 @@
     "autoprefixer": "^10.4.19",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "drizzle-kit": "^0.22.8",
     "drizzle-orm": "^0.31.2",
     "drizzle-zod": "^0.5.1",
     "lucide-react": "^0.400.0",
-    "next": "15.0.0-rc.1",
+    "next": "14.0.4",
     "next-auth": "5.0.0-beta.19",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
@@ -48,5 +48,8 @@
       "@types/react": "npm:types-react@19.0.0-rc.1",
       "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
     }
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.22.8"
   }
 }

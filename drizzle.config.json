@@ -1,0 +1,10 @@
+{
+  "schema": "./lib/db.ts",
+  "out": "./drizzle",
+  "driver": "pg",
+  "dialect": "postgresql",
+  "dbCredentials": {
+    "url": "postgres://default:iHqYX8yWZV1n@ep-hidden-waterfall-a4o3yh4e-pooler.us-east-1.aws.neon.tech:5432/verceldb",
+    "ssl": true
+  }
+} 

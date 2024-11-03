@@ -33,7 +33,7 @@ Inside the Vercel Postgres dashboard, create a table based on the schema defined
 ```
 CREATE TYPE status AS ENUM ('active', 'inactive', 'archived');
 
-CREATE TABLE products (
+CREATE TABLE datasets (
   id SERIAL PRIMARY KEY,
   image_url TEXT NOT NULL,
   name TEXT NOT NULL,

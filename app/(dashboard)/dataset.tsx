@@ -10,31 +10,25 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { SelectProduct } from '@/lib/db';
-import { deleteProduct } from './actions';
+import { SelectDataset } from '@/lib/db';
+import { deleteDataset } from './actions';
 
-export function Product({ product }: { product: SelectProduct }) {
+export function Dataset({ dataset }: { dataset: SelectDataset }) {
   return (
     <TableRow>
-      <TableCell className="hidden sm:table-cell">
-        <Image
-          alt="Product image"
-          className="aspect-square rounded-md object-cover"
-          height="64"
-          src={product.imageUrl}
-          width="64"
-        />
-      </TableCell>
-      <TableCell className="font-medium">{product.name}</TableCell>
       <TableCell>
         <Badge variant="outline" className="capitalize">
-          {product.status}
+          {dataset.modality}
         </Badge>
       </TableCell>
-      <TableCell className="hidden md:table-cell">{`$${product.price}`}</TableCell>
-      <TableCell className="hidden md:table-cell">{product.stock}</TableCell>
+      <TableCell className="hidden md:table-cell">{dataset.studyDate.toLocaleDateString("en-US")}</TableCell>
+      <TableCell className="hidden md:table-cell">{dataset.patientAge}</TableCell>
       <TableCell className="hidden md:table-cell">
-        {product.availableAt.toLocaleDateString("en-US")}
+        <textarea 
+          className="w-full h-24 overflow-y-auto resize-none" 
+          value={dataset.report} 
+          readOnly 
+        />
       </TableCell>
       <TableCell>
         <DropdownMenu>
@@ -48,7 +42,7 @@ export function Product({ product }: { product: SelectProduct }) {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>
-              <form action={deleteProduct}>
+              <form action={deleteDataset}>
                 <button type="submit">Delete</button>
               </form>
             </DropdownMenuItem>
@@ -57,4 +51,4 @@ export function Product({ product }: { product: SelectProduct }) {
       </TableCell>
     </TableRow>
   );
-}
+} 
