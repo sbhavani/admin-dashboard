@@ -5,8 +5,8 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
-
+import { MonthlyChart } from "@/components/MonthlyChart";
+import { ModalityChart } from "@/components/ModalityChart";
 // New data constants
 const monthlyData = [
   { month: "Sep-20", PET: 200, MRI: 0, Other: 0, CT: 0 },
@@ -54,26 +54,9 @@ export default function OrdersPage() {
               </CardHeader>
             </Card>
 
-            {/* Monthly Chart */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Monthly Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ResponsiveContainer width="100%" height={300}>
-                  <BarChart data={monthlyData}>
-                    <XAxis dataKey="month" />
-                    <YAxis />
-                    <Bar dataKey="PET" stackId="stack" fill="hsl(var(--primary))" />
-                    <Bar dataKey="MRI" stackId="stack" fill="hsl(var(--secondary))" />
-                    <Bar dataKey="Other" stackId="stack" fill="hsl(var(--accent))" />
-                    <Bar dataKey="CT" stackId="stack" fill="hsl(var(--muted))" />
-                  </BarChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            {/* Monthly Distribution */}
+            <MonthlyChart data={monthlyData} />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Vendor Distribution */}
               <Card>
                 <CardHeader>
@@ -81,7 +64,7 @@ export default function OrdersPage() {
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-4">
                   {vendorCounts.map((vendor) => (
-                    <div key={vendor.name} className="text-center">
+                    <div key={`${vendor.name}-${vendor.value}`} className="text-center">
                       <div className="relative h-32 w-32 mx-auto">
                         <svg className="w-full h-full" viewBox="0 0 100 50">
                           <path
@@ -109,21 +92,7 @@ export default function OrdersPage() {
               </Card>
 
               {/* Modality Distribution */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Modality Distribution</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={modalityData} layout="vertical">
-                      <XAxis type="number" />
-                      <YAxis dataKey="modality" type="category" />
-                      <Bar dataKey="count" fill="hsl(var(--primary))" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </CardContent>
-              </Card>
-            </div>
+              <ModalityChart data={modalityData} />
       </CardContent>
     </Card>
   );
