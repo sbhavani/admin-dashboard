@@ -1,6 +1,6 @@
 'use client';
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Legend } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface MonthlyChartProps {
@@ -24,6 +24,7 @@ export function MonthlyChart({ data }: MonthlyChartProps) {
           <BarChart data={data}>
             <XAxis dataKey="month" />
             <YAxis />
+            <Legend />
             <Bar dataKey="PET" fill="#8884d8" />
             <Bar dataKey="MRI" fill="#82ca9d" />
             <Bar dataKey="Other" fill="#ffc658" />
