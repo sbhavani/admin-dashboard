@@ -93,6 +93,9 @@ importers:
       server-only:
         specifier: ^0.0.1
         version: 0.0.1
+      shadcn-ui:
+        specifier: ^0.9.2
+        version: 0.9.2(typescript@5.5.3)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.4.0
@@ -108,10 +111,6 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.23.8
-    devDependencies:
-      shadcn-ui:
-        specifier: ^0.9.2
-        version: 0.9.2(typescript@5.5.3)
 
 packages:
 
