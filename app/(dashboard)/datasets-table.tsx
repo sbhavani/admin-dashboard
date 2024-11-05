@@ -45,6 +45,8 @@ export function DatasetsTable({
   // Add state for filters
   const [modalityFilter, setModalityFilter] = useState<string>('all');
   const [ageRange, setAgeRange] = useState<[number, number]>([0, 100]);
+  const [manufacturerFilter, setManufacturerFilter] = useState<string>('all');
+  const [countryFilter, setCountryFilter] = useState<string>('all');
 
   // Get unique modalities from datasets
   const modalities = Array.from(new Set(datasets.map(d => d.modality)));
@@ -53,7 +55,9 @@ export function DatasetsTable({
   const filteredDatasets = datasets.filter(dataset => {
     const modalityMatch = modalityFilter === 'all' || dataset.modality === modalityFilter;
     const ageMatch = dataset.patientAge >= ageRange[0] && dataset.patientAge <= ageRange[1];
-    return modalityMatch && ageMatch;
+    const manufacturerMatch = manufacturerFilter === 'all' || dataset.manufacturer === manufacturerFilter;
+    const countryMatch = countryFilter === 'all' || dataset.country === countryFilter;
+    return modalityMatch && ageMatch && manufacturerMatch && countryMatch;
   });
 
   function prevPage() {
@@ -86,6 +90,33 @@ export function DatasetsTable({
                     {modality}
                   </SelectItem>
                 ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="w-[200px]">
+            <Select value={manufacturerFilter} onValueChange={setManufacturerFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by manufacturer" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Manufacturers</SelectItem>
+                <SelectItem value="Philips">Philips</SelectItem>
+                <SelectItem value="Agfa">Agfa</SelectItem>
+                <SelectItem value="GE">GE</SelectItem>
+                <SelectItem value="Fujifilm">Fujifilm</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="w-[200px]">
+            <Select value={countryFilter} onValueChange={setCountryFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by country" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Countries</SelectItem>
+                <SelectItem value="U.S.">U.S.</SelectItem>
+                <SelectItem value="India">India</SelectItem>
+                <SelectItem value="Malaysia">Malaysia</SelectItem>
               </SelectContent>
             </Select>
           </div>
