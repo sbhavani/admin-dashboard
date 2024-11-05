@@ -32,7 +32,8 @@ export const insertDatasetSchema = createInsertSchema(datasets);
 
 export async function getDatasets(
   search: string,
-  offset: number
+  offset: number,
+  pageSize: number = 100
 ): Promise<{
   datasets: SelectDataset[];
   newOffset: number | null;
@@ -56,8 +57,8 @@ export async function getDatasets(
   }
 
   let totalDatasets = await db.select({ count: count() }).from(datasets);
-  let moreDatasets = await db.select().from(datasets).limit(5).offset(offset);
-  let newOffset = moreDatasets.length >= 5 ? offset + 5 : null;
+  let moreDatasets = await db.select().from(datasets).limit(pageSize).offset(offset);
+  let newOffset = moreDatasets.length >= pageSize ? offset + pageSize : null;
 
   return {
     datasets: moreDatasets,

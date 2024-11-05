@@ -18,7 +18,7 @@ import {
 import { Dataset } from './dataset';
 import { SelectDataset } from '@/lib/db';
 import { useRouter } from 'next/navigation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronDown, ChevronsUpDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -29,6 +29,24 @@ import {
 } from "@/components/ui/select"
 import { Slider } from "@/components/ui/slider"
 import { useState } from "react"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import { Badge } from "@/components/ui/badge"
+import { cn } from "@/lib/utils"
+import { Check } from "lucide-react"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+
+interface SelectProps {
+  value: string | string[];
+  onValueChange: (value: string | string[]) => void;
+  multiple?: boolean;
+}
 
 export function DatasetsTable({
   datasets,
@@ -40,20 +58,21 @@ export function DatasetsTable({
   totalDatasets: number;
 }) {
   let router = useRouter();
-  let datasetsPerPage = 5;
+  let datasetsPerPage = 100;
 
-  // Add state for filters
-  const [modalityFilter, setModalityFilter] = useState<string>('all');
+  // Change state type from string to string[]
+  const [modalityFilter, setModalityFilter] = useState<string[]>(['all']);
   const [ageRange, setAgeRange] = useState<[number, number]>([0, 100]);
   const [manufacturerFilter, setManufacturerFilter] = useState<string>('all');
   const [countryFilter, setCountryFilter] = useState<string>('all');
+  const [open, setOpen] = useState(false);
 
   // Get unique modalities from datasets
   const modalities = Array.from(new Set(datasets.map(d => d.modality)));
 
-  // Filter datasets
+  // Update filtering logic
   const filteredDatasets = datasets.filter(dataset => {
-    const modalityMatch = modalityFilter === 'all' || dataset.modality === modalityFilter;
+    const modalityMatch = modalityFilter.includes('all') || modalityFilter.includes(dataset.modality);
     const ageMatch = dataset.patientAge >= ageRange[0] && dataset.patientAge <= ageRange[1];
     const manufacturerMatch = manufacturerFilter === 'all'; // || dataset.manufacturer === manufacturerFilter;
     const countryMatch = countryFilter === 'all';// || dataset.country === countryFilter;
@@ -65,8 +84,17 @@ export function DatasetsTable({
   }
 
   function nextPage() {
-    router.push(`/?offset=${offset}`, { scroll: false });
+    console.log('nextPage called', {
+      offset,
+      newOffset: offset + datasetsPerPage,
+      url: `/?offset=${offset + datasetsPerPage}`
+    });
+    router.push(`/?offset=${offset + datasetsPerPage}`, { scroll: false });
+    router.refresh();
   }
+
+  const start = offset + 1;
+  const end = Math.min(offset + datasets.length, totalDatasets);
 
   return (
     <Card>
@@ -79,19 +107,80 @@ export function DatasetsTable({
       <CardContent>
         <div className="mb-4 flex gap-4 items-center">
           <div className="w-[200px]">
-            <Select value={modalityFilter} onValueChange={setModalityFilter}>
-              <SelectTrigger>
-                <SelectValue placeholder="Filter by modality" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Modalities</SelectItem>
-                {modalities.map(modality => (
-                  <SelectItem key={modality} value={modality}>
-                    {modality}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  aria-expanded={open}
+                  className="w-[200px] justify-between"
+                >
+                  {modalityFilter.includes('all') 
+                    ? 'All Modalities'
+                    : modalityFilter.length > 0 
+                      ? `${modalityFilter.length} selected`
+                      : "Select modalities"}
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[200px] p-0">
+                <Command>
+                  <CommandInput placeholder="Search modalities..." />
+                  <CommandList>
+                    <CommandEmpty>No modality found.</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem
+                        onSelect={() => {
+                          setModalityFilter(['all']);
+                          return false;
+                        }}
+                        className={cn(
+                          "cursor-pointer text-foreground",
+                          "aria-selected:bg-accent aria-selected:text-accent-foreground"
+                        )}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            modalityFilter.includes('all') ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        All Modalities
+                      </CommandItem>
+                      {modalities.map((modality) => (
+                        <CommandItem
+                          key={modality}
+                          onSelect={() => {
+                            if (modalityFilter.includes('all')) {
+                              setModalityFilter([modality]);
+                            } else {
+                              setModalityFilter(prev => 
+                                prev.includes(modality)
+                                  ? prev.filter(m => m !== modality)
+                                  : [...prev, modality]
+                              );
+                            }
+                            return false;
+                          }}
+                          className={cn(
+                            "cursor-pointer text-foreground",
+                            "aria-selected:bg-accent aria-selected:text-accent-foreground"
+                          )}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              modalityFilter.includes(modality) ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          {modality}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
           <div className="w-[200px]">
             <Select value={manufacturerFilter} onValueChange={setManufacturerFilter}>
@@ -160,7 +249,7 @@ export function DatasetsTable({
           <div className="text-xs text-muted-foreground">
             Showing{' '}
             <strong>
-              {Math.max(0, Math.min(offset - datasetsPerPage, totalDatasets) + 1)}-{offset}
+              {totalDatasets > 0 ? `${start}-${end}` : '0'}
             </strong>{' '}
             of <strong>{totalDatasets}</strong> datasets
           </div>
@@ -170,7 +259,7 @@ export function DatasetsTable({
               variant="ghost"
               size="sm"
               type="submit"
-              disabled={offset === datasetsPerPage}
+              disabled={offset === 0}
             >
               <ChevronLeft className="mr-2 h-4 w-4" />
               Prev
@@ -180,7 +269,15 @@ export function DatasetsTable({
               variant="ghost"
               size="sm"
               type="submit"
-              disabled={offset + datasetsPerPage > totalDatasets}
+              disabled={offset + datasetsPerPage >= totalDatasets}
+              onClick={() => {
+                console.log('Next clicked', {
+                  offset,
+                  datasetsPerPage,
+                  totalDatasets,
+                  wouldDisable: offset + datasetsPerPage >= totalDatasets
+                });
+              }}
             >
               Next
               <ChevronRight className="ml-2 h-4 w-4" />

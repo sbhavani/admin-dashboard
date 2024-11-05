@@ -11,10 +11,10 @@ export default async function DatasetsPage(
 ) {
   const searchParams = await props.searchParams;
   const search = searchParams.q ?? '';
-  const offset = searchParams.offset ?? 0;
+  const offset = parseInt(searchParams.offset ?? '0', 10);
   const { datasets, newOffset, totalDatasets } = await getDatasets(
     search,
-    Number(offset)
+    offset
   );
 
   return (
@@ -42,7 +42,7 @@ export default async function DatasetsPage(
       <TabsContent value="all">
         <DatasetsTable
           datasets={datasets}
-          offset={newOffset ?? 0}
+          offset={offset}
           totalDatasets={totalDatasets}
         />
       </TabsContent>
