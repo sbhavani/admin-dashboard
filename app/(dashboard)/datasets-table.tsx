@@ -55,8 +55,8 @@ export function DatasetsTable({
   const filteredDatasets = datasets.filter(dataset => {
     const modalityMatch = modalityFilter === 'all' || dataset.modality === modalityFilter;
     const ageMatch = dataset.patientAge >= ageRange[0] && dataset.patientAge <= ageRange[1];
-    const manufacturerMatch = manufacturerFilter === 'all' || dataset.manufacturer === manufacturerFilter;
-    const countryMatch = countryFilter === 'all' || dataset.country === countryFilter;
+    const manufacturerMatch = manufacturerFilter === 'all'; // || dataset.manufacturer === manufacturerFilter;
+    const countryMatch = countryFilter === 'all';// || dataset.country === countryFilter;
     return modalityMatch && ageMatch && manufacturerMatch && countryMatch;
   });
 
