@@ -30,6 +30,21 @@ export function Dataset({ dataset }: { dataset: SelectDataset }) {
           readOnly 
         />
       </TableCell>
+      <TableCell className="hidden md:table-cell">{dataset.llm?.test}</TableCell>
+      <TableCell className="hidden md:table-cell">
+        {dataset.llm?.diagnosis && !dataset.llm.diagnosis.includes('No explicit diagnosis') 
+          ? dataset.llm.diagnosis 
+          : null}
+      </TableCell>
+      <TableCell className="hidden md:table-cell">
+        <div className="flex flex-wrap gap-2">
+          {Array.isArray(dataset.llm?.diagnosisList) && dataset.llm.diagnosisList.map((diagnosis, index) => (
+            <Badge key={index} variant="secondary" className="capitalize">
+              {diagnosis.description}
+            </Badge>
+          ))}
+        </div>
+      </TableCell>
       {/* <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
