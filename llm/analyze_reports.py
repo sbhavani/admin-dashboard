@@ -3,7 +3,7 @@ import json
 import google.generativeai as genai
 import time
 
-API_KEY = os.environ.get("GEMINI_API_KEY") or "AIzaSyDuaNkpzOzD3QFs01JQM3zj2RBBeC1BMho"
+API_KEY = os.environ.get("GEMINI_API_KEY") 
 
 # Create the model
 generation_config = {
