@@ -102,7 +102,9 @@ export function DatasetsTable({
   });
 
   function prevPage() {
-    router.back();
+    const newOffset = Math.max(0, offset - datasetsPerPage);
+    router.push(`/?offset=${newOffset}`, { scroll: false });
+    router.refresh();
   }
 
   function nextPage() {
