@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Card,
   CardContent,
@@ -7,6 +9,7 @@ import {
 } from '@/components/ui/card';
 import { MonthlyChart } from "@/components/MonthlyChart";
 import { ModalityChart } from "@/components/ModalityChart";
+import { VendorPieChart } from "@/components/VendorPieChart";
 // New data constants
 const monthlyData = [
   { month: "Sep-20", PET: 200, MRI: 0, Other: 0, CT: 0 },
@@ -38,6 +41,16 @@ const vendorCounts = [
   { name: "Other", value: 13 },
 ];
 
+// Updated color palette based on Intelpixel's brand colors
+const COLORS = [
+  '#00E6CA', // Primary turquoise
+  '#00F5A0', // Primary green
+  '#33EBD5', // Light turquoise
+  '#33F7B3', // Light green
+  '#00B29D', // Dark turquoise
+  '#00C280'  // Dark green
+];
+
 export default function OrdersPage() {
   return (
     <Card>
@@ -45,54 +58,61 @@ export default function OrdersPage() {
         <CardTitle>Orders</CardTitle>
         <CardDescription>View orders summary.</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="space-y-6">
           {/* Total Deal Size */}
           <Card>
               <CardHeader className="space-y-1">
                 <CardTitle className="text-7xl font-bold text-center">5,339</CardTitle>
                 <p className="text-center text-muted-foreground">Total Deal Size (in thousands USD)</p>
               </CardHeader>
+          </Card>
+
+          {/* Grid container for charts */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Monthly Distribution */}
+            <Card className="col-span-full">
+              <CardHeader>
+                <CardTitle>Monthly Distribution</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <MonthlyChart 
+                  data={monthlyData} 
+                  colors={{
+                    PET: '#00E6CA',
+                    MRI: '#00F5A0',
+                    Other: '#33EBD5',
+                    CT: '#33F7B3'
+                  }}
+                />
+              </CardContent>
             </Card>
 
-            {/* Monthly Distribution */}
-            <MonthlyChart data={monthlyData} />
+            {/* Vendor Distribution */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Vendor Distribution</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <VendorPieChart 
+                  data={vendorCounts}
+                  colors={COLORS}
+                />
+              </CardContent>
+            </Card>
 
-              {/* Vendor Distribution */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Vendor Distribution</CardTitle>
-                </CardHeader>
-                <CardContent className="grid grid-cols-3 gap-4">
-                  {vendorCounts.map((vendor) => (
-                    <div key={`${vendor.name}-${vendor.value}`} className="text-center">
-                      <div className="relative h-32 w-32 mx-auto">
-                        <svg className="w-full h-full" viewBox="0 0 100 50">
-                          <path
-                            d="M 5 45 A 40 40 0 0 1 95 45"
-                            fill="none"
-                            stroke="hsl(var(--border))"
-                            strokeWidth="10"
-                          />
-                          <path
-                            d="M 5 45 A 40 40 0 0 1 95 45"
-                            fill="none"
-                            stroke="hsl(var(--primary))"
-                            strokeWidth="10"
-                            strokeDasharray={`${(vendor.value / 18) * 142} 142`}
-                          />
-                        </svg>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center">
-                          <span className="text-3xl font-bold">{vendor.value}</span>
-                          <span className="text-sm text-muted-foreground">{vendor.name}</span>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </CardContent>
-              </Card>
-
-              {/* Modality Distribution */}
-              <ModalityChart data={modalityData} />
+            {/* Modality Distribution */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Modality Distribution</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ModalityChart 
+                  data={modalityData}
+                  colors={COLORS}
+                />
+              </CardContent>
+            </Card>
+          </div>
       </CardContent>
     </Card>
   );

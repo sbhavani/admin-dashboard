@@ -58,7 +58,7 @@ export function DatasetsTable({
   totalDatasets: number;
 }) {
   let router = useRouter();
-  let datasetsPerPage = 100;
+  let datasetsPerPage = 25;
 
   // Change state type from string to string[]
   const [modalityFilter, setModalityFilter] = useState<string[]>(['all']);
@@ -223,18 +223,15 @@ export function DatasetsTable({
         <Table>
           <TableHeader>
             <TableRow>
-              {/* <TableHead>Name</TableHead> */}
-              {/* <TableHead>Status</TableHead> */}
-              <TableHead className="hidden md:table-cell">Modality</TableHead>
-              <TableHead className="hidden md:table-cell">Study Date</TableHead>
-              {/* <TableHead className="hidden md:table-cell">Patient Sex</TableHead> */}
-              <TableHead className="hidden md:table-cell">Patient Age</TableHead>
-              {/* <TableHead className="hidden md:table-cell">Created at</TableHead> */}
+              <TableHead className="hidden md:table-cell w-24">Modality</TableHead>
+              <TableHead className="hidden md:table-cell w-24">Study Date</TableHead>
+              <TableHead className="hidden md:table-cell w-20">Age</TableHead>
               <TableHead className="hidden md:table-cell">Report</TableHead>
-              <TableHead className="hidden md:table-cell">Actions</TableHead>
-              <TableHead>
+              <TableHead className="hidden md:table-cell">Indications</TableHead>
+              {/* <TableHead className="hidden md:table-cell">Actions</TableHead> */}
+              {/* <TableHead>
                 <span className="sr-only">Actions</span>
-              </TableHead>
+              </TableHead> */}
             </TableRow>
           </TableHeader>
           <TableBody>

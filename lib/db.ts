@@ -33,7 +33,7 @@ export const insertDatasetSchema = createInsertSchema(datasets);
 export async function getDatasets(
   search: string,
   offset: number,
-  pageSize: number = 100
+  pageSize: number = 25
 ): Promise<{
   datasets: SelectDataset[];
   newOffset: number | null;

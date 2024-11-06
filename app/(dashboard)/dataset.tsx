@@ -30,7 +30,7 @@ export function Dataset({ dataset }: { dataset: SelectDataset }) {
           readOnly 
         />
       </TableCell>
-      <TableCell>
+      {/* <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button aria-haspopup="true" size="icon" variant="ghost">
@@ -48,7 +48,7 @@ export function Dataset({ dataset }: { dataset: SelectDataset }) {
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </TableCell>
+      </TableCell> */}
     </TableRow>
   );
 } 
