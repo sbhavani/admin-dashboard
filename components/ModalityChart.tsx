@@ -4,13 +4,11 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ModalityChartProps {
-  data: Array<{
-    modality: string;
-    count: number;
-  }>;
+  data: { modality: string; count: number; }[];
+  colors: string[];
 }
 
-export function ModalityChart({ data }: ModalityChartProps) {
+export function ModalityChart({ data, colors }: ModalityChartProps) {
   return (
     <Card>
       {/* <CardHeader>

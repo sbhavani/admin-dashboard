@@ -20,16 +20,16 @@ const COLORS = [
 ]
 
 interface MonthlyChartProps {
-  data: Array<{
-    month: string;
-    PET: number;
-    MRI: number;
-    Other: number;
-    CT: number;
-  }>;
+  data: { month: string; PET: number; MRI: number; Other: number; CT: number; }[];
+  colors: {
+    PET: string;
+    MRI: string;
+    Other: string;
+    CT: string;
+  };
 }
 
-export function MonthlyChart({ data }: MonthlyChartProps) {
+export function MonthlyChart({ data, colors }: MonthlyChartProps) {
   return (
     <Card>
       <CardHeader>
@@ -41,10 +41,10 @@ export function MonthlyChart({ data }: MonthlyChartProps) {
             <XAxis dataKey="month" />
             <YAxis />
             <Legend />
-            <Bar dataKey="PET" fill={COLORS[0]} />
-            <Bar dataKey="MRI" fill={COLORS[1]} />
-            <Bar dataKey="Other" fill={COLORS[2]} />
-            <Bar dataKey="CT" fill={COLORS[3]} />
+            <Bar dataKey="PET" fill={colors.PET} />
+            <Bar dataKey="MRI" fill={colors.MRI} />
+            <Bar dataKey="Other" fill={colors.Other} />
+            <Bar dataKey="CT" fill={colors.CT} />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>

@@ -2,8 +2,12 @@ import os
 import json
 import google.generativeai as genai
 import time
+from dotenv import load_dotenv
 
-API_KEY = os.environ.get("GEMINI_API_KEY") 
+# Load environment variables from .env file
+load_dotenv()
+
+API_KEY = os.environ.get("GEMINI_API_KEY")
 
 # Create the model
 generation_config = {
