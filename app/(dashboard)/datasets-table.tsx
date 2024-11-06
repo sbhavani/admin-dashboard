@@ -99,7 +99,7 @@ export function DatasetsTable({
     const manufacturerMatch = manufacturerFilter === 'all';
     const countryMatch = countryFilter === 'all';
     const indicationsMatch = indicationsFilter.includes('all') || 
-      (dataset.llm?.diagnosisList && Array.isArray(dataset.llm.diagnosisList) && dataset.llm.diagnosisList.some(i => indicationsFilter.includes(i.code)));
+      (dataset.llm?.diagnosisList && Array.isArray(dataset.llm.diagnosisList) && dataset.llm.diagnosisList.some(i => indicationsFilter.includes(i.description)));
     return modalityMatch && ageMatch && manufacturerMatch && countryMatch && indicationsMatch;
   });
 

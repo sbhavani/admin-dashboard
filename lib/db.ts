@@ -34,10 +34,12 @@ export const llm = pgTable('llm', {
   patientId: text('patient_id').references(() => datasets.patientId),
   test: text('test'),
   diagnosis: text('diagnosis'),
-  diagnosisList: jsonb('diagnosis_list'),
+  diagnosisList: jsonb('diagnosis_list').$type<Array<{ description: string }>>(),
 });
 
-export type SelectDataset = typeof datasets.$inferSelect;
+export type SelectDataset = typeof datasets.$inferSelect & {
+  llm?: SelectLlm | undefined;
+};
 export const insertDatasetSchema = createInsertSchema(datasets);
 
 export type SelectLlm = typeof llm.$inferSelect;
