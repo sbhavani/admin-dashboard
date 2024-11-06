@@ -24,7 +24,7 @@ export async function User() {
           className="overflow-hidden rounded-full"
         >
           <Image
-            src={user?.image ?? '/placeholder-user.jpg'}
+            src={'/placeholder-user.jpg'}
             width={36}
             height={36}
             alt="Avatar"
@@ -35,8 +35,10 @@ export async function User() {
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href="/settings">Settings</Link>
+        </DropdownMenuItem> {/*
+        <DropdownMenuItem>Support</DropdownMenuItem> */}
         <DropdownMenuSeparator />
         {user ? (
           <DropdownMenuItem>

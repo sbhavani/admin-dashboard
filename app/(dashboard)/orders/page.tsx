@@ -53,66 +53,63 @@ const COLORS = [
 
 export default function OrdersPage() {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Orders</CardTitle>
-        <CardDescription>View orders summary.</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-          {/* Total Deal Size */}
-          <Card>
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-7xl font-bold text-center">5,339</CardTitle>
-                <p className="text-center text-muted-foreground">Total Deal Size (in thousands USD)</p>
-              </CardHeader>
-          </Card>
+    <div className="space-y-6">
+      <h1 className="text-2xl font-bold">Orders</h1>
+      <p className="text-muted-foreground">View orders summary.</p>
+      
+      {/* Total Deal Size */}
+      <Card>
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-7xl font-bold text-center">5,339</CardTitle>
+          <p className="text-center text-muted-foreground">Total Deal Size (in thousands USD)</p>
+        </CardHeader>
+      </Card>
 
-          {/* Grid container for charts */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Monthly Distribution */}
-            <Card className="col-span-full">
-              <CardHeader>
-                <CardTitle>Monthly Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <MonthlyChart 
-                  data={monthlyData} 
-                  colors={{
-                    PET: '#00E6CA',
-                    MRI: '#00F5A0',
-                    Other: '#33EBD5',
-                    CT: '#33F7B3'
-                  }}
-                />
-              </CardContent>
-            </Card>
+      {/* Grid container for charts */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Monthly Distribution */}
+        <Card className="col-span-full">
+          <CardHeader>
+            <CardTitle>Monthly Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <MonthlyChart 
+              data={monthlyData} 
+              colors={{
+                PET: '#00E6CA',
+                MRI: '#00F5A0',
+                Other: '#33EBD5',
+                CT: '#33F7B3'
+              }}
+            />
+          </CardContent>
+        </Card>
 
-            {/* Vendor Distribution */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Vendor Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <VendorPieChart 
-                  data={vendorCounts}
-                />
-              </CardContent>
-            </Card>
+        {/* Vendor Distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Vendor Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <VendorPieChart 
+              data={vendorCounts}
+            />
+          </CardContent>
+        </Card>
 
-            {/* Modality Distribution */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Modality Distribution</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ModalityChart 
-                  data={modalityData}
-                  colors={COLORS}
-                />
-              </CardContent>
-            </Card>
-          </div>
-      </CardContent>
-    </Card>
+        {/* Modality Distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Modality Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ModalityChart 
+              data={modalityData}
+              colors={COLORS}
+            />
+          </CardContent>
+        </Card>
+      </div>
+    </div>
   );
 }
