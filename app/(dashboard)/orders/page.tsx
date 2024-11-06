@@ -95,7 +95,6 @@ export default function OrdersPage() {
               <CardContent>
                 <VendorPieChart 
                   data={vendorCounts}
-                  colors={COLORS}
                 />
               </CardContent>
             </Card>

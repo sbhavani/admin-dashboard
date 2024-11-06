@@ -8,7 +8,13 @@ const COLORS = [
   '#00C853', // Medium green
   '#00AF44'  // Dark green
 ]
-export function VendorPieChart({ data }: { data: { name: string; value: number }[] }) {
+
+interface VendorPieChartProps {
+  data: { name: string; value: number; }[];
+  colors?: string[];  // Make it optional with ?
+}
+
+export const VendorPieChart: React.FC<VendorPieChartProps> = ({ data, colors }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart>
@@ -23,7 +29,7 @@ export function VendorPieChart({ data }: { data: { name: string; value: number }
           dataKey="value"
         >
           {data.map((_, index) => (
-            <Cell key={`cell-${index}`} fill={COLORS[index]} />
+            <Cell key={`cell-${index}`} fill={colors ? colors[index] : COLORS[index]} />
           ))}
         </Pie>
         <Legend />
